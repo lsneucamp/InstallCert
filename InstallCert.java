@@ -128,32 +128,22 @@ public class InstallCert {
             md5.update(cert.getEncoded());
             System.out.println("   md5     " + toHexString(md5.digest()));
             System.out.println();
-        }
 
-        // System.out.println("Enter certificate to add to trusted keystore or 'q' to quit: [1]");
-        // String line = reader.readLine().trim();
-        int k;
-        try {
-            k = chain.length - 1;
-        } catch (NumberFormatException e) {
-            System.out.println("KeyStore not changed");
-            return;
-        }
+            String alias = host + "-" + (i + 1);
+            ks.setCertificateEntry(alias, cert);
 
-        X509Certificate cert = chain[k];
-        String alias = host + "-" + (k + 1);
-        ks.setCertificateEntry(alias, cert);
+            OutputStream out = new FileOutputStream("jssecacerts");
+            ks.store(out, passphrase);
+            out.close();
 
-        OutputStream out = new FileOutputStream("jssecacerts");
-        ks.store(out, passphrase);
-        out.close();
+            System.out.println();
+            System.out.println(cert);
+            System.out.println();
+            System.out.println
+                    ("Added certificate to keystore 'jssecacerts' using alias '"
+                            + alias + "'");
+          }
 
-        System.out.println();
-        System.out.println(cert);
-        System.out.println();
-        System.out.println
-                ("Added certificate to keystore 'jssecacerts' using alias '"
-                        + alias + "'");
     }
 
     private static final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
