@@ -1,4 +1,6 @@
 
+#!/bin/bash
+
 ! [[ -f "InstallCert.class" ]] && javac InstallCert.java
 
 java InstallCert $1:$2
