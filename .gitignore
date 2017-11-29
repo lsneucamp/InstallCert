@@ -1,3 +1,4 @@
 InstallCert*.class
 jssecacerts
 *.cer
+./*.jar

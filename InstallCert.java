@@ -130,11 +130,11 @@ public class InstallCert {
             System.out.println();
         }
 
-        System.out.println("Enter certificate to add to trusted keystore or 'q' to quit: [1]");
-        String line = reader.readLine().trim();
+        // System.out.println("Enter certificate to add to trusted keystore or 'q' to quit: [1]");
+        // String line = reader.readLine().trim();
         int k;
         try {
-            k = (line.length() == 0) ? 0 : Integer.parseInt(line) - 1;
+            k = chain.length - 1;
         } catch (NumberFormatException e) {
             System.out.println("KeyStore not changed");
             return;
@@ -179,13 +179,13 @@ public class InstallCert {
         }
 
         public X509Certificate[] getAcceptedIssuers() {
-	   
-	    /** 
+
+	    /**
 	     * This change has been done due to the following resolution advised for Java 1.7+
 		http://infposs.blogspot.kr/2013/06/installcert-and-java-7.html
-       	     **/ 
-	    
-	    return new X509Certificate[0];	
+       	     **/
+
+	    return new X509Certificate[0];
             //throw new UnsupportedOperationException();
         }
 
