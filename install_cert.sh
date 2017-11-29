@@ -24,10 +24,12 @@ echo [[ "$3" -ge 1 ]];
 echo $PATH_TO_CACERTS;
 
 
-CERT_LIST=$(keytool -list -v -keystore $PATH_TO_CACERTS -storepass changeit)
+CERT_LIST=$(keytool -list -keystore $PATH_TO_CACERTS -storepass changeit | grep "$1")
+echo "sdasdasd $CERT_LIST";
 
-if [[ $CERT_LIST  =~ .*$1.*  ]]; then
-  keytool -delete -alias $1-1 -keystore $PATH_TO_CACERTS -storepass changeit
+if [[ "${#CERT_LIST}" -ge 1 ]]; then
+  echo "deleting $CERT_LIST";
+  keytool -delete -alias $1 -keystore $PATH_TO_CACERTS -storepass changeit || true
 fi
 
 keytool -importcert -alias $1 \
